@@ -398,8 +398,8 @@ npm run logs:error
 
 - **项目维护者**: [Your Name]
 - **邮箱**: [your.email@example.com]
-- **GitHub**: [yourusername/book-recommendation-application](https://github.com/yourusername/book-recommendation-application)
-- **Issue Tracker**: [https://github.com/yourusername/book-recommendation-application/issues](https://github.com/yourusername/book-recommendation-application/issues)
+- **GitHub**: [minuo/book-recommendation-application](https://github.com/minuo/book-recommendation-application)
+- **Issue Tracker**: [https://github.com/minuo/book-recommendation-application/issues](https://github.com/minuo/book-recommendation-application/issues)
 
 ## 更新日志
 
