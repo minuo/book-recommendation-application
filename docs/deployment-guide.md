@@ -72,7 +72,7 @@ git --version
 npm install -g pm2
 
 # 验证安装
-pm -v
+pm2 -v
 ```
 
 ### 2.5 配置防火墙
@@ -90,6 +90,157 @@ sudo ufw enable
 # 查看防火墙状态
 sudo ufw status
 ```
+
+### 2.6 CentOS操作系统特有配置
+
+#### 2.6.1 CentOS服务器初始化
+
+1. **连接服务器**
+   ```bash
+   ssh root@your-server-ip
+   ```
+
+2. **更新系统包（CentOS 7）**
+   ```bash
+   yum update -y
+   ```
+
+   或者（CentOS 8+，使用dnf）
+   ```bash
+   dnf update -y
+   ```
+
+3. **创建非root用户**
+   ```bash
+   useradd deploy
+   passwd deploy
+   ```
+
+4. **添加用户到wheel组（用于sudo权限）**
+   ```bash
+   usermod -aG wheel deploy
+   ```
+
+5. **切换到新用户**
+   ```bash
+   su - deploy
+   ```
+
+#### 2.6.2 安装Node.js和npm（CentOS）
+
+```bash
+# 使用NodeSource安装Node.js 18
+curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
+
+# CentOS 7
+sudo yum install -y nodejs
+
+# 或者 CentOS 8+
+sudo dnf install -y nodejs
+
+# 验证安装
+node -v
+npm -v
+```
+
+#### 2.6.3 安装Git（CentOS）
+
+```bash
+# CentOS 7
+sudo yum install git -y
+
+# 或者 CentOS 8+
+sudo dnf install git -y
+
+# 验证安装
+git --version
+```
+
+#### 2.6.4 安装PM2进程管理器（CentOS）
+
+```bash
+npm install -g pm2
+
+# 验证安装
+pm2 -v
+```
+
+#### 2.6.5 配置防火墙（firewalld，CentOS）
+
+```bash
+# 启用并启动firewalld服务
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
+
+# 允许SSH连接
+sudo firewall-cmd --permanent --add-service=ssh
+
+# 允许应用端口（默认3000）
+sudo firewall-cmd --permanent --add-port=3000/tcp
+
+# 重新加载防火墙规则
+sudo firewall-cmd --reload
+
+# 查看防火墙状态
+sudo firewall-cmd --list-all
+```
+
+#### 2.6.6 SELinux设置（CentOS）
+
+```bash
+# 查看SELinux状态
+getenforce
+
+# 如果SELinux处于Enforcing模式，可以临时切换到Permissive模式进行测试
+sudo setenforce 0
+
+# 永久设置SELinux模式（可选，不建议完全关闭）
+# 编辑/etc/selinux/config文件，将SELINUX=enforcing改为SELINUX=permissive或SELINUX=disabled
+sudo vi /etc/selinux/config
+
+# 允许Node.js访问网络（如果SELinux处于Enforcing模式）
+sudo semanage port -a -t http_port_t -p tcp 3000
+```
+
+#### 2.6.7 配置systemd服务（CentOS）
+
+1. **创建systemd服务文件**
+   ```bash
+   sudo vi /etc/systemd/system/book-recommendation.service
+   ```
+
+2. **添加以下内容到服务文件**
+   ```ini
+   [Unit]
+   Description=Book Recommendation Application
+   After=network.target
+   
+   [Service]
+   Type=simple
+   User=deploy
+   WorkingDirectory=/home/deploy/book-recommendation-application
+   ExecStart=/usr/bin/node /home/deploy/book-recommendation-application/src/app.js
+   Restart=on-failure
+   
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+3. **重新加载systemd配置**
+   ```bash
+   sudo systemctl daemon-reload
+   ```
+
+4. **启用并启动服务**
+   ```bash
+   sudo systemctl enable book-recommendation
+sudo systemctl start book-recommendation
+   ```
+
+5. **查看服务状态**
+   ```bash
+   sudo systemctl status book-recommendation
+   ```
 
 ## 3. Gitee仓库设置
 
