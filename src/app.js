@@ -78,8 +78,8 @@ app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/links', linkRoutes);
 app.use('/api/v1/history', historyRoutes);
 
-// 404路由处理
-app.use('*', (req, res) => {
+// 404路由处理 - Express 5.x不再支持单独的'*'通配符，使用无路径中间件捕获所有未匹配路由
+app.use((req, res) => {
   res.status(404).json({
     status: 'error',
     message: 'API endpoint not found',

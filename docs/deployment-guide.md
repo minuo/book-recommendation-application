@@ -321,6 +321,9 @@ npm install
 ### 5.1 创建基本部署脚本
 
 在项目根目录创建`deploy.sh`文件：
+```bash
+vi deploy.sh
+```
 
 ```bash
 #!/bin/bash

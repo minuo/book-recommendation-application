@@ -56,8 +56,8 @@ Gitee提供了直接从GitHub导入仓库的功能，操作简单快捷。
    ```
    origin  https://github.com/minuo/book-recommendation-application.git (fetch)
    origin  https://github.com/minuo/book-recommendation-application.git (push)
-   gitee   git@gitee.com:your-username/book-recommendation-application.git (fetch)
-   gitee   git@gitee.com:your-username/book-recommendation-application.git (push)
+   gitee   git@gitee.com:aidd/book-recommendation-application.git (fetch)
+   gitee   git@gitee.com:aidd/book-recommendation-application.git (push)
    ```
 
 #### 2.2.2 从GitHub拉取最新代码并推送到Gitee
