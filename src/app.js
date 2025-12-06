@@ -20,6 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // 健康检查路由
 app.get('/health', (req, res) => {
+  /*
+   * 健康检查接口
+   */
   res.status(200).json({
     status: 'success',
     message: 'API is running',
