@@ -385,7 +385,46 @@ GET /api/v1/books/new/list?limit=20
 }
 ```
 
-#### 4.2.5 获取图书分类列表
+#### 4.2.5 获取最新添加的图书列表
+
+**请求**
+```
+GET /api/v1/books/latest?limit=10
+```
+
+**参数说明**
+
+| 参数名 | 类型 | 必填 | 描述 |
+|--------|------|------|------|
+| limit | number | 否 | 返回数量，默认10条，最大不超过100条 |
+
+**响应**
+```json
+{
+  "status": "success",
+  "message": "Latest books retrieved successfully",
+  "data": {
+    "books": [
+      {
+        "id": 21,
+        "title": "最新添加的图书",
+        "author": "作者名称",
+        "isbn": "9787115123456",
+        "category": "计算机",
+        "publisher": "出版社名称",
+        "publish_date": "2023-05-01T00:00:00.000Z",
+        "cover_url": "https://example.com/cover.jpg",
+        "description": "图书描述信息...",
+        "view_count": 123,
+        "create_time": "2023-05-20T14:30:00.000Z"
+      },
+      // 更多图书...
+    ]
+  }
+}
+```
+
+#### 4.2.6 获取图书分类列表
 
 **请求**
 ```
@@ -411,7 +450,7 @@ GET /api/v1/books/categories
 }
 ```
 
-#### 4.2.6 获取分类下的图书列表
+#### 4.2.7 获取分类下的图书列表
 
 **请求**
 ```

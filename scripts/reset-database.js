@@ -145,7 +145,18 @@ async function resetDatabase() {
       console.log('✅ 数据库重置成功！');
       console.log('   - 所有表数据已完全清除');
       console.log('   - 所有表id自增序列已重置为初始值(1)');
-      process.exit(0);
+      
+      // 10. 自动执行seed.js重新填充数据库
+      console.log('\n🔄 正在执行数据填充脚本...');
+      const { execSync } = require('child_process');
+      try {
+        execSync('node scripts/seed.js', { stdio: 'inherit' });
+        console.log('✅ 数据填充完成！');
+        process.exit(0);
+      } catch (error) {
+        console.error('❌ 数据填充失败：', error);
+        process.exit(1);
+      }
     } else {
       console.error('❌ 数据库重置失败！');
       console.error('   - 数据清除状态：', allTablesEmpty ? '成功' : '失败');
